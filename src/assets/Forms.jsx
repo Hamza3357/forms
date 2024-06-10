@@ -1,11 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 
+const getLocalItems = () => {
+ let list = localStorage.getItem('lists')
+    if(list) {
+        return JSON.parse(localStorage.getItem('lists'))
+    }
+    else{
+        return [];
+    }
+}
 const Forms = () => {
-  
+ 
  
     const [inputVal, setInputval] = useState('');
-    const [todoList, setTodoList] = useState([]);
+    const [todoList, setTodoList] = useState(getLocalItems());
     const handleSubmit = (e) => {
         e.preventDefault();
         if (inputVal.trim() === '') return;
@@ -18,7 +27,21 @@ const Forms = () => {
             return i!=id
         } ) )
     }
+const handleEdit = (e) => {
 
+}
+useEffect(() => {
+    localStorage.setItem("lists", JSON.stringify(todoList));
+ }, [todoList]);
+// const openDoor = e => {
+//     e.currentTarget.parentElement.classList.add("opened");
+//     const newValue = [...openedArr, e.currentTarget.id];
+//     setOpenedArr(newValue);
+//     localStorage.setItem("openDoors", JSON.stringify(newValue));
+//   };
+//  useEffect(() => {
+//     localStorage.getItem("todos", setTodoList(JSON.parse(todoList)));
+//  }, []);
     return (
         <>
             <div>
@@ -44,10 +67,10 @@ const Forms = () => {
                         {todoList.map((todoItem, id) => {
                             return (
                                 <>       
-                                <tr  key={id}>
+                                <tr key={id}>
                                         <td className='mx-5 '>  <li>{todoItem}
                                         </li></td>
-                                        <td onClick={()=> handleDelete(id)} className='mx-5 rounded-2xlp-2 bg-green-400'>delete</td>
+                                        <td > <button className='mx-5 rounded-2xlp-2 bg-green-400' onClick={()=> handleDelete(id)}>delete</button> <button onClick={()=> handleEdit(id)} className='bg-blue-700 text-white'>Edit</button></td>
 
                                     </tr>
 
