@@ -6,8 +6,6 @@ const Signup = () => {
     const [lastName, setLastName] = useState('')
     const [password, setPassword] = useState('')
 
-
-    console.log()
 function handleSigup () {
     localStorage.setItem("firstname", JSON.stringify(firstName))
     localStorage.setItem("lastname", JSON.stringify(lastName))

@@ -10,7 +10,7 @@ const getLocalItems = () => {
         return [];
     }
 }
-const Forms = () => {
+const TodoList = () => {
 
     const [inputVal, setInputval] = useState('');
     const [todoList, setTodoList] = useState(getLocalItems());
@@ -83,4 +83,4 @@ setInputval(todoItem);
     )
 }
 
-export default Forms
+export default TodoList
