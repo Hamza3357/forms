@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom';
-import Forms from './assets/Forms';
+import Forms from './Components/Forms';
 
 const App = () => {
 
