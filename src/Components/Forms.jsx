@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 
 const getLocalItems = () => {
-   
+//    getting items from local storgae
     if (localStorage.getItem('todoItems')) {
         return JSON.parse(localStorage.getItem('todoItems'))
     }
@@ -12,28 +12,32 @@ const getLocalItems = () => {
 }
 const Forms = () => {
 
-
     const [inputVal, setInputval] = useState('');
     const [todoList, setTodoList] = useState(getLocalItems());
+
+    // handling form submit
     const handleSubmit = (e) => {
-        
-    console.log(e.target.id)
         e.preventDefault();
         if (inputVal.trim() === '') return;
         setTodoList((prev) => [...prev, inputVal]);
         setInputval('');
      
     }
+    // handling delete
     const handleDelete = (id) => {
         setTodoList(todoList.filter((item, i) => {
             return i != id
         }))
     }
+
+    // handling edit
     const handleEdit = (todoItem, id) => {
 console.log(todoItem, id);
 setInputval(todoItem);
 
     }
+
+    // setting items to local storage
     useEffect(() => {
         localStorage.setItem("todoItems", JSON.stringify(todoList));
     }, [todoList]);
