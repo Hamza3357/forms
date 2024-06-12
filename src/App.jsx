@@ -1,25 +1,21 @@
-import React, { useState } from 'react'
-import { useParams } from 'react-router-dom';
-import Forms from './assets/Forms';
+import React, { Component, useState } from 'react'
+import TodoList from './Components/TodoList';
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Signup from './Components/Signup';
 
 const App = () => {
 
-  let { userId } = useParams();
-  console.log(userId)
-
-
-
-
   return (
     <>
-      <div className='flex flex-col'>
-        <Forms />
-     
-        {/**/}
-      </div>
-  
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<TodoList />} />
+        <Route path="/signup" element={<Signup />} />
+        </Routes>
+        </BrowserRouter>
+        </>
+  );
 }
 
 export default App
