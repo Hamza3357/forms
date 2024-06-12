@@ -34,7 +34,12 @@ const TodoList = () => {
     const handleEdit = (todoItem, id) => {
 console.log(todoItem, id);
 setInputval(todoItem);
-
+const item = JSON.parse(localStorage.getItem('todoItems'))
+newItem = item.forEach((tm, idx)=> {
+    if(idx == id){
+        localStorage.setItem()
+    }
+})
     }
 
     // setting items to local storage

@@ -5,14 +5,24 @@ const Signup = () => {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [password, setPassword] = useState('')
-
+    
+// handling signup
 function handleSigup () {
+  if((firstName === null || lastName === null || password ===null) || (firstName === '' || lastName === '' || password === '') ){
+    alert('Fill all the Fields')
+  }
+  else{
     localStorage.setItem("firstname", JSON.stringify(firstName))
     localStorage.setItem("lastname", JSON.stringify(lastName))
     localStorage.setItem("password", JSON.stringify(password))
+    alert('Congratulations you are registered')
+    console.log(firstName);
+    console.log(lastName);
+    console.log(password);
     setFirstName("")
     setLastName("")
-    setPassword("")
+    setPassword("") 
+  }
 }
   return (
     <div>
