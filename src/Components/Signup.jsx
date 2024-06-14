@@ -2,33 +2,43 @@ import React, { useState } from 'react'
 
 
 const Signup = () => {
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [password, setPassword] = useState('')
-    
+  const [registeredUsers, setRegisteredUsers] = useState([])
+  const [user, setUser] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: ''
+  })
+
+    const handleChange = (event) => {
+      const {name, value} = event.target
+      setUser({
+        ...user, [name]: value
+      })
+
+    }
 // handling signup
 function handleSigup () {
-  if((firstName === null || lastName === null || password ===null) || (firstName === '' || lastName === '' || password === '') ){
+  if((user.firstName === null || user.lastName === null || user.email === null || user.password ===null) || (user.firstName === '' || user.lastName === '' || user.email === '' || user.password === '') ){
     alert('Fill all the Fields')
   }
   else{
-    localStorage.setItem("firstname", JSON.stringify(firstName))
-    localStorage.setItem("lastname", JSON.stringify(lastName))
-    localStorage.setItem("password", JSON.stringify(password))
+    setRegisteredUsers((prev) => {
+      [...prev, user]
+    });
+    localStorage.setItem("users", JSON.stringify(user))
+
     alert('Congratulations you are registered')
-    console.log(firstName);
-    console.log(lastName);
-    console.log(password);
-    setFirstName("")
-    setLastName("")
-    setPassword("") 
+    console.log(user);
+
   }
 }
   return (
     <div>
-      <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} class="form-control"  placeholder="First Name" />
-      <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} class="form-control"  placeholder="Last Name" />
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+      <input type="text" name='firstName' value={user.firstName} onChange={handleChange}  class="form-control"  placeholder="First Name" />
+      <input type="text" name='lastName' value={user.lastName} onChange={handleChange} class="form-control"  placeholder="Last Name" />
+      <input type="email" name='email' value={user.email} onChange={handleChange} class="form-control"  placeholder="Email" />
+      <input type="password" name='password' value={user.password} onChange={handleChange} placeholder="Password" />
       <button className='bg-green-300 mx-3' onClick={handleSigup} >Submit</button>
      
   </div>
