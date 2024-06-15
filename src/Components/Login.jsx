@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
+import Signup from './Signup';
 
 const Login = () => {
     const [firstName, setFirstName] = useState("")
@@ -14,9 +16,12 @@ const Login = () => {
     }
 
   return (
-    <div>  <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} class="form-control"  placeholder="First Name" />\
+    <div className='flex flex-col'>  
+      <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} class="form-control"  placeholder="First Name" />
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-<button onClick={handleLogin}>login</button>
+<button className='bg-green-500 ' onClick={handleLogin}>login</button>
+<Link className='bg-blue-300' to="/Signup">Signup</Link>
+
     </div>
   )
 }

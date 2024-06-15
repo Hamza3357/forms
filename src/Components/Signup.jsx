@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import Login from './Login'
 
 
 const Signup = () => {
-  const [registeredUsers, setRegisteredUsers] = useState([])
   const [user, setUser] = useState({
-    firstName: '',
-    lastName: '',
     email: '',
     password: ''
   })
@@ -17,29 +16,46 @@ const Signup = () => {
       })
 
     }
+    let registeruser = []
 // handling signup
 function handleSigup () {
-  if((user.firstName === null || user.lastName === null || user.email === null || user.password ===null) || (user.firstName === '' || user.lastName === '' || user.email === '' || user.password === '') ){
+  if(( user.email === null || user.password ===null) || (user.email === '' || user.password === '') ){
     alert('Fill all the Fields')
   }
-  else{
-    setRegisteredUsers((prev) => {
-      [...prev, user]
-    });
-    localStorage.setItem("users", JSON.stringify(user))
+  
+  else if (user.email === registeruser.email) {
+    alert("already registered")
+    // registeruser.forEach((item, id) => {
+    //   if(item.email == user.email){
+    //     alert("already registered")
+    //   }
+    // })
+ 
 
-    alert('Congratulations you are registered')
-    console.log(user);
 
   }
+  else {
+    registeruser.push(user)
+    console.log("regist", registeruser)
+    localStorage.setItem("users", JSON.stringify(registeruser))
+
+    alert('You are registered')
+
+    setUser({ 
+      email: '',
+      password: ''})
+  }
+
+
 }
   return (
-    <div>
-      <input type="text" name='firstName' value={user.firstName} onChange={handleChange}  class="form-control"  placeholder="First Name" />
-      <input type="text" name='lastName' value={user.lastName} onChange={handleChange} class="form-control"  placeholder="Last Name" />
+    <div className='flex flex-col'>
+     
       <input type="email" name='email' value={user.email} onChange={handleChange} class="form-control"  placeholder="Email" />
-      <input type="password" name='password' value={user.password} onChange={handleChange} placeholder="Password" />
+      <input type="password" name='password' minlength="3" value={user.password} onChange={handleChange} placeholder="Password" />
       <button className='bg-green-300 mx-3' onClick={handleSigup} >Submit</button>
+
+      <Link to="/Login" className='bg-blue-300'>Login</Link>
      
   </div>
   )
