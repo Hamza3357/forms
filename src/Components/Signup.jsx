@@ -22,18 +22,16 @@ function handleSigup () {
   if(( user.email === null || user.password ===null) || (user.email === '' || user.password === '') ){
     alert('Fill all the Fields')
   }
-  
-  else if (user.email === registeruser.email) {
-    alert("already registered")
-    // registeruser.forEach((item, id) => {
-    //   if(item.email == user.email){
-    //     alert("already registered")
-    //   }
-    // })
+  else if(registeruser){ 
+     registeruser.forEach((item, id) => {
+    if(item.email == user.email){
+      alert("already registered")
+    }
+  }) }
  
-
-
-  }
+//  (user.email === registeruser.email) {
+//     alert("already registered")
+//   }
   else {
     registeruser.push(user)
     console.log("regist", registeruser)
@@ -51,12 +49,13 @@ function handleSigup () {
   return (
     <div className='flex flex-col'>
      
+     
       <input type="email" name='email' value={user.email} onChange={handleChange} class="form-control"  placeholder="Email" />
       <input type="password" name='password' minlength="3" value={user.password} onChange={handleChange} placeholder="Password" />
       <button className='bg-green-300 mx-3' onClick={handleSigup} >Submit</button>
 
       <Link to="/Login" className='bg-blue-300'>Login</Link>
-     
+   
   </div>
   )
 }
