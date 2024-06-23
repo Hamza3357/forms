@@ -2,61 +2,74 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Login from './Login'
 
-
 const Signup = () => {
   const [user, setUser] = useState({
     email: '',
     password: ''
   })
 
-    const handleChange = (event) => {
-      const {name, value} = event.target
-      setUser({
-        ...user, [name]: value
-      })
-
-    }
-    let registeruser = []
-// handling signup
-function handleSigup () {
-  if(( user.email === null || user.password ===null) || (user.email === '' || user.password === '') ){
-    alert('Fill all the Fields')
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    setUser({
+      ...user, [name]: value
+    })
   }
-  else if(registeruser){ 
-     registeruser.forEach((item, id) => {
-    if(item.email == user.email){
-      alert("already registered")
+
+  function handleSignup() {
+    if (user.email === '' || user.password === '') {
+      alert('Fill all the Fields')
+      return;
     }
-  }) }
- 
-//  (user.email === registeruser.email) {
-//     alert("already registered")
-//   }
-  else {
+
+    // Retrieve existing users from local storage
+    let registeruser = JSON.parse(localStorage.getItem('users')) || []
+
+    // Check if the user is already registered
+    const userExists = registeruser.some(item => item.email === user.email)
+    if (userExists) {
+      alert("User is already registered")
+      return;
+    }
+
+    // Add the new user to the list
     registeruser.push(user)
-    console.log("regist", registeruser)
     localStorage.setItem("users", JSON.stringify(registeruser))
 
     alert('You are registered')
 
-    setUser({ 
+    // Reset the user state
+    setUser({
       email: '',
-      password: ''})
+      password: ''
+    })
   }
 
-
-}
   return (
     <div className='flex flex-col'>
-     
-     
-      <input type="email" name='email' value={user.email} onChange={handleChange} class="form-control"  placeholder="Email" />
-      <input type="password" name='password' minlength="3" value={user.password} onChange={handleChange} placeholder="Password" />
-      <button className='bg-green-300 mx-3' onClick={handleSigup} >Submit</button>
-
+      <input 
+        type="email" 
+        name='email' 
+        value={user.email} 
+        onChange={handleChange} 
+        className="form-control" 
+        placeholder="Email" 
+      />
+      <input 
+        type="password" 
+        name='password' 
+        minLength="3" 
+        value={user.password} 
+        onChange={handleChange} 
+        placeholder="Password" 
+      />
+      <button 
+        className='bg-green-300 mx-3' 
+        onClick={handleSignup} 
+      >
+        Submit
+      </button>
       <Link to="/Login" className='bg-blue-300'>Login</Link>
-   
-  </div>
+    </div>
   )
 }
 

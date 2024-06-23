@@ -50,7 +50,7 @@ const TodoList = () => {
     return (
         <>
             <div>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={ handleSubmit}>
                     <label htmlFor="inputTodo" className="sr-only">Todo</label>
                     <input
                         type="text"
@@ -59,7 +59,7 @@ const TodoList = () => {
                         onChange={(e) => setInputVal(e.target.value)}
                         placeholder="Todo"
                     />
-                    <button type="submit" className="btn bg-black btn-primary text-white mb-2">
+                    <button type="submit" onClick={() => handleSubmit} className="btn bg-black btn-primary text-white mb-2">
                         {editIndex !== null ? 'Update' : 'Submit'}
                     </button>
                 </form>
