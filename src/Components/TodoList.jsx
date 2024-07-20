@@ -1,12 +1,13 @@
 // src/components/TodoList.js
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTodo, editTodo, deleteTodo } from '../store/slices/userSlice';
+import { addTodo, editTodo, deleteTodo } from '../store/slices/todoSlice';
 
 const TodoList = () => {
     const [inputVal, setInputVal] = useState('');
     const [editIndex, setEditIndex] = useState(null);
     const todos = useSelector((state) => state.todos);
+    const {authenticated} = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
@@ -36,6 +37,7 @@ const TodoList = () => {
 
     return (
         <>
+        {authenticated ? (     <>
             <div>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="inputTodo" className="sr-only">Todo</label>
@@ -86,7 +88,12 @@ const TodoList = () => {
                     </table>
                 </ul>
             </div>
+        </>) : (
+            <>
+            <SignIn />
+        </>)}
         </>
+   
     );
 };
 
