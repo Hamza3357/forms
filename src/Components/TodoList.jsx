@@ -1,7 +1,11 @@
 // src/components/TodoList.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTodo, editTodo, deleteTodo } from '../store/slices/todoSlice';
+import { signOut } from '../store/slices/userSlice';
+import { useNavigate } from 'react-router-dom';
+import SignIn from './SignIn'
+
 
 const TodoList = () => {
     const [inputVal, setInputVal] = useState('');
@@ -9,6 +13,7 @@ const TodoList = () => {
     const todos = useSelector((state) => state.todos);
     const {authenticated} = useSelector((state) => state.user);
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -34,6 +39,17 @@ const TodoList = () => {
     const handleDelete = (index) => {
         dispatch(deleteTodo(index));
     };
+    useEffect(() => {
+        let timer;
+        if (authenticated) {
+            timer = setTimeout(() => {
+                dispatch(signOut());
+                navigate("/signIn");
+            }, 1 * 60 * 1000); // 1 minute
+
+            return () => clearTimeout(timer);
+        }
+    }, [authenticated, dispatch, navigate]);
 
     return (
         <>
